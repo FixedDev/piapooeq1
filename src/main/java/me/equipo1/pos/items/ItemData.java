@@ -1,9 +1,6 @@
 package me.equipo1.pos.items;
 
 public interface ItemData {
-    int autoid();
-
-    void setAutoId(int id);
 
     String id();
 
@@ -12,7 +9,6 @@ public interface ItemData {
     double price();
 
     void setPrice(double price);
-
 
     int minQuantity();
 

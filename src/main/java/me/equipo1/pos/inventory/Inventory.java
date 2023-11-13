@@ -16,6 +16,8 @@ public interface Inventory {
      */
     void registerItem(ItemData itemData);
 
+    void deleteItem(ItemData itemData);
+
     /**
      * Adds the specified quantity of items into the inventory.
      *
@@ -34,6 +36,14 @@ public interface Inventory {
     boolean sell(ItemData itemData, int quantity);
 
     /**
+     * If the inventory contains enough of the specified item data.
+     * @param itemData The item to check stock for.
+     * @param quantity The quantity of the item that should be in stock.
+     * @return If there's enough stock of the item.
+     */
+    boolean has(ItemData itemData, int quantity);
+
+    /**
      * Returns an item into the inventory if it was returned by a client.
      *
      * @param itemData     The item to return
@@ -41,5 +51,6 @@ public interface Inventory {
      * @return if the item could be returned.
      */
     boolean returnItem(ItemData itemData, int quantity);
+
 
 }
