@@ -46,7 +46,7 @@ public class RegisterView implements View {
             if (opcion == 's') {
                 return viewManager.getView("create-item").orElse(null);
             } else {
-                return this;
+                return viewManager.getView("inventory").orElse(null);
             }
         }
 

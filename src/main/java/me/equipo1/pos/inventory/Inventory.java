@@ -43,6 +43,8 @@ public interface Inventory {
      */
     boolean has(ItemData itemData, int quantity);
 
+    int stock(ItemData itemData);
+
     /**
      * Returns an item into the inventory if it was returned by a client.
      *

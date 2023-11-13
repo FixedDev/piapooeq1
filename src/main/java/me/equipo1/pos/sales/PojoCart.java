@@ -122,4 +122,13 @@ public class PojoCart implements Cart {
         itemsWithQuantity.clear();
         resetPaid();
     }
+
+    @Override
+    public void returnItems() {
+        itemsWithQuantity.forEach(
+                (itemData, integer) -> {
+                    inventory.returnItem(itemData, integer);
+                }
+        );
+    }
 }

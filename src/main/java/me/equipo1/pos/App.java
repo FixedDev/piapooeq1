@@ -10,9 +10,7 @@ import me.equipo1.pos.items.ItemRegistry;
 import me.equipo1.pos.sales.CartManager;
 import me.equipo1.pos.views.*;
 import me.equipo1.pos.views.SalesView;
-import me.equipo1.pos.views.inventory.CreateItemView;
-import me.equipo1.pos.views.inventory.DeleteView;
-import me.equipo1.pos.views.inventory.RegisterView;
+import me.equipo1.pos.views.inventory.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,10 +29,13 @@ public class App {
     private Scanner scanner;
     private SQLiteDbConnection dbConnection;
 
-    private View currentView;
     private Inventory inventory;
     private ItemRegistry registry;
     private Datastore datastore;
+    private CartManager cartManager;
+    private ViewManager viewManager;
+
+    private View currentView;
 
     public void init() {
         logger = Logger.getLogger("AbBisonte");
@@ -43,18 +44,9 @@ public class App {
         initHandlers();
 
         scanner = new Scanner(System.in);
+        cartManager = new CartManager(inventory);
 
-        ViewManager viewManager = new ViewManager();
-        CartManager cartManager = new CartManager(inventory);
-
-        viewManager.registerView("main", new MainView(scanner, viewManager));
-        viewManager.registerView("inventory", new InventoryView(viewManager, scanner));
-        viewManager.registerView("sales", new SalesView(viewManager, scanner, cartManager));
-        viewManager.registerView("register", new RegisterView(scanner, viewManager, inventory));
-        viewManager.registerView("create-item", new CreateItemView(scanner, viewManager, inventory));
-        viewManager.registerView("delete", new DeleteView(scanner, viewManager, inventory));
-
-        currentView = viewManager.getView("main").get();
+        initViews();
 
         while (currentView != null) {
             try {
@@ -68,8 +60,27 @@ public class App {
         View.clear();
         View.println(ABARROTES_BISONTE);
 
+        logger.log(Level.INFO, "Guardando inventario...");
+        datastore.saveInventory(inventory).join();
+        logger.log(Level.INFO, "Inventario guardado.");
+
         System.out.println("Gracias por usar Abarrotes Bisonte.");
         System.out.println("Adios:D");
+    }
+
+    private void initViews() {
+        viewManager = new ViewManager();
+
+        viewManager.registerView("main", new MainView(scanner, viewManager));
+        viewManager.registerView("inventory", new InventoryView(viewManager, scanner));
+        viewManager.registerView("sales", new SalesView(viewManager, scanner, cartManager));
+        viewManager.registerView("register", new RegisterView(scanner, viewManager, inventory));
+        viewManager.registerView("create-item", new CreateItemView(scanner, viewManager, inventory));
+        viewManager.registerView("delete", new DeleteView(scanner, viewManager, inventory));
+        viewManager.registerView("update", new UpdateItemView(scanner, viewManager, registry));
+        viewManager.registerView("show", new ShowInventoryView(scanner, viewManager, inventory, registry));
+
+        currentView = viewManager.getView("main").get();
     }
 
     private void initDb() {

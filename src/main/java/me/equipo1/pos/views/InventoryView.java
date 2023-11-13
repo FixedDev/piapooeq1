@@ -30,7 +30,7 @@ public class InventoryView implements View {
                 1. Bajas
                 2. Altas
                 3. Actualizar
-                4. Devoluciones
+                4. Mostrar
                 5. Salir
                 """);
 
@@ -51,7 +51,7 @@ public class InventoryView implements View {
             case 1 -> viewManager.getView("delete").orElse(this);
             case 2 -> viewManager.getView("register").orElse(this);
             case 3 -> viewManager.getView("update").orElse(this);
-            case 4 -> viewManager.getView("returns").orElse(this);
+            case 4 -> viewManager.getView("show").orElse(this);
             case 5 -> viewManager.getView("main").orElse(null);
             default -> this;
         };

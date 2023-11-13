@@ -29,6 +29,7 @@ public class CartOptionView implements View {
 
     @Override
     public View show() {
+        println("Opciones especiales: pagar, devolver, reset, salir");
         print("Ingrese: ");
         String input = scanner.next();
 
@@ -42,6 +43,16 @@ public class CartOptionView implements View {
 
         if (input.equalsIgnoreCase("reset")) {
             cart.reset();
+
+            return parent;
+        }
+
+        if (input.equalsIgnoreCase("devolver")) {
+            cart.returnItems();
+            cart.reset();
+
+            println("Se devolvieron los articulos del carrito al inventario.");
+            pause(scanner);
 
             return parent;
         }

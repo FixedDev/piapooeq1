@@ -82,6 +82,11 @@ public class PojoInventory implements Inventory {
     }
 
     @Override
+    public int stock(ItemData itemData) {
+        return itemsStock.getOrDefault(itemData.id(), 0);
+    }
+
+    @Override
     public boolean returnItem(ItemData itemData, int quantity) {
         if (itemById(itemData.id()).isEmpty()) {
             return false;

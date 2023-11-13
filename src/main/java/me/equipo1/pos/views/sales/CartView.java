@@ -37,19 +37,19 @@ public class CartView implements View {
                 ---------------------
                 """);
 
-        println("-".repeat(100));
-        printCentered("Items", 100);
+        println("-".repeat(110));
+        printCentered("Articulos", 110);
         println();
-        println("-".repeat(100));
+        println("-".repeat(110));
 
         printLeft("Codigo", 20);
-        printLeft("Nombre", 20);
+        printLeft("Nombre", 30);
         printLeft("Cantidad", 20);
         printRight("Costo Unitario", 20);
         printRight("Costo", 20);
 
         println();
-        println("-".repeat(80));
+        println("-".repeat(110));
 
         cart.itemsInCart().forEach((itemData, integer) -> {
             if (integer == 0) {
@@ -57,16 +57,16 @@ public class CartView implements View {
             }
 
             printLeft(itemData.id(), 20);
-            printLeft(itemData.name(), 20);
+            printLeft(itemData.name(), 30);
             printLeft(String.valueOf(integer), 20);
             printRight(String.valueOf(itemData.price()), 20);
             printRight(String.valueOf(itemData.price() * integer), 20);
             println();
         });
 
-        println("-".repeat(80));
+        println("-".repeat(110));
 
-        printRight("Costo: " + cart.getPrice(), 80);
+        printRight("Costo: " + cart.getPrice(), 110);
         println();
 
         if (returnTo == optionView) {

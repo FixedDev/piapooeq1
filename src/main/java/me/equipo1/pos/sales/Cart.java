@@ -36,4 +36,6 @@ public interface Cart {
     Map<ItemData, Integer> itemsInCart();
 
     void reset();
+
+    void returnItems();
 }

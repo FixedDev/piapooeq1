@@ -35,11 +35,11 @@ public final class SQLiteStatements {
             """;
 
     public static final String LOAD_ITEM = """
-            select * from items where item_id = ? limit 1;
+            select * from items where item_id = ?;
             """;
 
     public static final String DELETE_ITEM = """
-            delete from items where item_id = ? limit 1;
+            delete from items where item_id = ?;
             """;
 
     public static final String SAVE_ITEM = """
@@ -56,6 +56,6 @@ public final class SQLiteStatements {
                 name = ?,
                 min_stock = ?,
                 price = ?
-            where item_id = ? limit 1;
+            where item_id = ?;
             """;
 }

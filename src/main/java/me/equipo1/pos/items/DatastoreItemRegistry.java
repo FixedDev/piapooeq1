@@ -2,9 +2,7 @@ package me.equipo1.pos.items;
 
 import me.equipo1.pos.datastore.Datastore;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
 public class DatastoreItemRegistry implements ItemRegistry {
@@ -38,6 +36,11 @@ public class DatastoreItemRegistry implements ItemRegistry {
     }
 
     @Override
+    public CompletableFuture<Void> updateItem(ItemData itemData) {
+        return datastore.updateItem(itemData);
+    }
+
+    @Override
     public CompletableFuture<Void> saveItem(ItemData itemData) {
         itemDataCache.put(itemData.id(), itemData);
 
@@ -54,6 +57,11 @@ public class DatastoreItemRegistry implements ItemRegistry {
         itemDataCache.remove(itemData.id());
 
         return datastore.deleteItem(itemData);
+    }
+
+    @Override
+    public CompletableFuture<Collection<ItemData>> allItems() {
+        return CompletableFuture.supplyAsync(itemDataCache::values);
     }
 
     @Override

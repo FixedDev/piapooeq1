@@ -1,12 +1,14 @@
 package me.equipo1.pos.items;
 
+import java.util.Objects;
+
 public class PojoItemData implements ItemData {
 
     private final String id;
-    private final String name;
+    private  String name;
     private double price;
 
-    private final int minQuantity;
+    private  int minQuantity;
 
     public PojoItemData(String id, String name, double price, int minQuantity) {
         this.id = id;
@@ -26,6 +28,11 @@ public class PojoItemData implements ItemData {
     }
 
     @Override
+    public void setName(String name) {
+        this.name = Objects.requireNonNull(name);
+    }
+
+    @Override
     public double price() {
         return price;
     }
@@ -39,5 +46,10 @@ public class PojoItemData implements ItemData {
     @Override
     public int minQuantity() {
         return minQuantity;
+    }
+
+    @Override
+    public void setMinStock(int minStock) {
+        this.minQuantity = minStock;
     }
 }
