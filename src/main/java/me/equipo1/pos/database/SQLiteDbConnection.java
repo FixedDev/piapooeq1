@@ -23,7 +23,10 @@ public class SQLiteDbConnection implements DbConnection {
 
         if (uri.equals("jdbc:sqlite:")) {
             uri += connectionParameters.getOrDefault("file-dir", ":memory:");
-            logger.log(Level.WARNING, "No fue especificado un parametro de directorio para la base de datos, se utilizara base de datos en memoria!");
+
+            if(uri.endsWith(":memory:")){
+                logger.log(Level.WARNING, "No fue especificado un parametro de directorio para la base de datos, se utilizara base de datos en memoria!");
+            }
         }
 
         connectionURI = uri;

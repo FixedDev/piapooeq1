@@ -45,9 +45,8 @@ public class ShowInventoryView implements View {
                 }
 
                 println("-".repeat(110));
-            });
-
-            pause(scanner);
+                pause(scanner);
+            }).join();
         } else {
             Optional<ItemData> optItem = inventory.itemById(input);
 

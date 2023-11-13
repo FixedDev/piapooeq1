@@ -109,7 +109,7 @@ public class PojoCart implements Cart {
             return;
         }
 
-        itemsWithQuantity.forEach(inventory::sell);
+        itemsWithQuantity.forEach((itemData, quantity) -> inventory.sell(itemData, quantity, true));
     }
 
     @Override

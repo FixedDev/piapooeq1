@@ -72,6 +72,22 @@ public class PojoInventory implements Inventory {
     }
 
     @Override
+    public boolean sell(ItemData itemData, int quantity, boolean force) {
+        if (itemById(itemData.id()).isEmpty()) {
+            return false;
+        }
+
+        int itemStock = itemsStock.getOrDefault(itemData.id(), 0);
+        if (itemStock - quantity < 0 && !force) {
+            return false;
+        }
+
+        itemsStock.compute(itemData.id(), (s, integer) -> (integer == null ? 0 : integer) - quantity);
+        changedStocks.add(itemData.id());
+
+        return true;    }
+
+    @Override
     public boolean has(ItemData itemData, int quantity) {
         if (itemById(itemData.id()).isEmpty()) {
             return false;
